@@ -1,0 +1,73 @@
+definitions:
+  dict.Error:
+    properties:
+      code:
+        type: integer
+      details:
+        items:
+          type: string
+        type: array
+      level:
+        type: string
+      msg:
+        type: string
+    type: object
+  model.Article:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      introduction:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: gin开发的系统
+  license: {}
+  title: gin系统
+  version: "1.0"
+paths:
+  /api/articles:
+    get:
+      parameters:
+      - description: 名称
+        in: query
+        maxLength: 100
+        name: name
+        type: string
+      - default: 1
+        description: 状态
+        enum:
+        - 0
+        - 1
+        in: query
+        name: state
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页数量
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Article'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/dict.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/dict.Error'
+      summary: 获取列表
+swagger: "2.0"

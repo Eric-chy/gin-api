@@ -1,0 +1,61 @@
+app:
+  runMode: debug
+  port: 8088
+  readTimeout: 5
+  writeTimeout: 10
+  appName: gin-api
+  maxPageSize: 100
+  defaultPageSize: 10
+  logDir: storage/logs
+  aesKey: qwertyuioplkjhgf
+  uploadSavePath: storage/uploads
+  uploadServerUrl: http://127.0.0.1:8000/static
+  uploadImageMaxSize: 5  # MB
+  uploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
+database:
+  driver: mysql
+  protocol: tcp
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: 123456
+  name: blog
+  prefix:
+  runMode: debug
+  maxOpens: 100
+  maxIdles: 10
+  maxLifetime: 86400
+redis:
+  driver: redis
+  protocol: tcp
+  host: 127.0.0.1
+  port: 6379
+  password:
+  maxIdle: 10
+  maxActive: 100
+  idleTimeout: 86400
+sentry:
+  dsn:
+jwt:
+  secret: gin-api
+  issuer: gin-api-service
+  expire: 7200
+jaeger:
+  link: 127.0.0.1:6831
+email:
+  host: smtp.126.com
+  port: 465
+  userName: xxx@126.com
+  password:
+  isSSL: true
+  from:
+es:
+  link: http://127.0.0.1:9200/
+  maxIdleConnsPerHost: 10
+mongo:
+  host: 127.0.0.1:27017
+  maxPoolSize: 100
+  timeout: 100
