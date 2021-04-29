@@ -1,7 +1,7 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，包含mysql，redis，elasticsearch，mongo，rabbitmq，jaeger，限流，sentry, jwt，发送邮件，图片上传等,有兴趣的请star，另外可以关注我的博客http://www.cyz.show</h6>
+<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，包含mysql，redis，elasticsearch，mongo，rabbitmq，jaeger，限流，sentry, jwt，发送邮件，图片上传等,有兴趣的请star，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
 
 #### 目录结构
 ~~~
