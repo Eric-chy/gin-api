@@ -1,27 +1,24 @@
 package middleware
 
 import (
-	"fmt"
 	"ginpro/common/global"
 	"ginpro/pkg/app"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 func Logger() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := make(map[string]interface{})
+		data["ip"] = c.ClientIP()
 		data["url"] = c.Request.Host + c.Request.RequestURI
 		data["method"] = c.Request.Method
 		data["proto"] = c.Request.Proto
-		data["request"] = global.RequestData
+		data["request"] = app.JsonParams(c)
 		data["header"] = c.Request.Header
 
 		c.Next()
 
-		//data["response"] = app.GetResponseData(c)
-		data["costTime"] = fmt.Sprintf("%.6fs", float64(time.Since(global.RequestTime))/1e9)
-
+		data["response"] = app.Get(c, "responseData")
 		// 写日志
 		//level := app.GetLevel(c)
 		level := app.GetLevel(c)

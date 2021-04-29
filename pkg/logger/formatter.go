@@ -2,9 +2,9 @@ package logger
 
 import (
 	"fmt"
-	"ginpro/common/global"
 	"ginpro/pkg/helper/convert"
 	"ginpro/pkg/helper/gjson"
+	"ginpro/pkg/helper/gtime"
 	"github.com/sirupsen/logrus"
 	"path/filepath"
 	"strings"
@@ -23,11 +23,12 @@ func (s *LogFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 		file = filepath.Base(entry.Caller.File)
 		line = entry.Caller.Line
 	}
+
 	level := strings.ToUpper(entry.Level.String())
 	content := gjson.JsonEncode(entry.Data)
 	msg := fmt.Sprintf(
-		"%s %s [%s] [GID:%d] [RID:%d] #file:%s:%d #msg:%s #content:%v\n",
-		timestamp, global.Ip, level, convert.GID(), global.RequestID, file, line, entry.Message, content,
+		"【%s】 [%s] [ip:%s] [GID:%d] [RID:%d]\r\n#File:%s:%d \r\n#Msg:%s \r\n#Content:%v\n",
+		level, timestamp, entry.Data["ip"], convert.GID(), gtime.GetMicroTime(), file, line, entry.Message, content,
 	)
 	return []byte(msg), nil
 }

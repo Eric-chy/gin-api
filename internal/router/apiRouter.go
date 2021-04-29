@@ -12,20 +12,22 @@ import (
 	"net/http"
 	"time"
 )
+
 var methodLimiters = limiter.NewMethodLimiter().AddBuckets(limiter.LimiterBucketRule{
 	Key:          "/auth",
 	FillInterval: time.Second,
 	Capacity:     10,
 	Quantum:      10,
 })
+
 func ApiRouter() *gin.Engine {
 	var r *gin.Engine
 	// 创建一个不包含中间件的路由器
 	r = gin.New()
-	// 使用 Cors 中间件
-	r.Use(middleware.Cors())
 	//// 使用 Global 中间件
 	r.Use(middleware.Global())
+	// 使用 Cors 中间件
+	r.Use(middleware.Cors())
 	//// 使用 Logger 中间件
 	r.Use(middleware.Logger())
 	//// 使用 Recovery 中间件
