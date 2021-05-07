@@ -1,6 +1,7 @@
 package config
 
 import (
+	"flag"
 	"github.com/spf13/viper"
 	"time"
 )
@@ -9,19 +10,19 @@ var Conf Yaml
 
 type Yaml struct {
 	App struct {
-		RunMode              string   `yaml:"runMode"`
-		Port                 string   `yaml:"port"`
-		ReadTimeout          time.Duration      `yaml:"readTimeout"`
-		WriteTimeout         time.Duration      `yaml:"writeTimeout"`
-		AppName              string   `yaml:"appName"`
-		LogDir               string   `yaml:"logDir"`
-		AESKey               string   `yaml:"aesKey"`
-		MaxPageSize          int      `yaml:"maxPageSize"`
-		DefaultPageSize      int      `yaml:"defaultPageSize"`
-		UploadImageMaxSize   int      `yaml:"defaultPageSize"`
-		UploadSavePath       string   `yaml:"uploadSavePath"`
-		UploadServerUrl      string   `yaml:"uploadServerUrl"`
-		UploadImageAllowExts []string `yaml:"uploadImageAllowExts"`
+		RunMode              string        `yaml:"runMode"`
+		Port                 string        `yaml:"port"`
+		ReadTimeout          time.Duration `yaml:"readTimeout"`
+		WriteTimeout         time.Duration `yaml:"writeTimeout"`
+		AppName              string        `yaml:"appName"`
+		LogDir               string        `yaml:"logDir"`
+		AESKey               string        `yaml:"aesKey"`
+		MaxPageSize          int           `yaml:"maxPageSize"`
+		DefaultPageSize      int           `yaml:"defaultPageSize"`
+		UploadImageMaxSize   int           `yaml:"defaultPageSize"`
+		UploadSavePath       string        `yaml:"uploadSavePath"`
+		UploadServerUrl      string        `yaml:"uploadServerUrl"`
+		UploadImageAllowExts []string      `yaml:"uploadImageAllowExts"`
 	}
 	Database struct {
 		Driver      string        `yaml:"driver"`
@@ -77,12 +78,19 @@ type Yaml struct {
 	}
 }
 
+var (
+	port    string
+	runMode string
+	cfg     string
+	env     string
+)
 var vp *viper.Viper
 
 func Init() {
+	setupFlag()
 	vp = viper.New()
+	vp.AddConfigPath(cfg)
 	vp.SetConfigName("dev")
-	vp.AddConfigPath("config/")
 	vp.SetConfigType("yaml")
 	err := vp.ReadInConfig()
 	if err != nil {
@@ -93,4 +101,12 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func setupFlag() {
+	flag.StringVar(&port, "port", "", "启动端口")
+	flag.StringVar(&runMode, "mode", "", "启动模式")
+	flag.StringVar(&cfg, "config", "./config/", "指定要使用的配置文件路径")
+	flag.StringVar(&env, "env", "dev", "指定要使用的配置文件")
+	flag.Parse()
 }

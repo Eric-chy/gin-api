@@ -15,6 +15,11 @@ import (
 func LogFile() (io.Writer, string) {
 	// 目录路径
 	logDirPath := config.Conf.App.LogDir
+	if ok := CheckSavePath(logDirPath); ok {
+		if err := os.MkdirAll(logDirPath, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
 	// 文件名
 	logFileName := config.Conf.App.AppName
 	// 文件路径
@@ -25,17 +30,6 @@ func LogFile() (io.Writer, string) {
 		fmt.Println("Open Src File err", err)
 	}
 	return f, logFilePath
-}
-
-func FileExists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err != nil {
-		return false, err
-	}
-	if os.IsNotExist(err) {
-		return false, err
-	}
-	return true, err
 }
 
 type FileType int
@@ -122,4 +116,3 @@ func SaveFile(file *multipart.FileHeader, dst string) error {
 	_, err = io.Copy(out, src)
 	return err
 }
-

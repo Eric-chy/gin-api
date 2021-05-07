@@ -11,10 +11,10 @@ import (
 	"time"
 )
 
-//日志自定义格式
+//LogFormatter 日志自定义格式
 type LogFormatter struct{}
 
-//格式详情
+//Format 格式详情
 func (s *LogFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	var file string
