@@ -12,6 +12,7 @@ type Yaml struct {
 	App struct {
 		RunMode              string        `yaml:"runMode"`
 		Port                 string        `yaml:"port"`
+		Version              string        `yaml:"version"`
 		ReadTimeout          time.Duration `yaml:"readTimeout"`
 		WriteTimeout         time.Duration `yaml:"writeTimeout"`
 		AppName              string        `yaml:"appName"`

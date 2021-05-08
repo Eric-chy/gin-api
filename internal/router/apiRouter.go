@@ -47,7 +47,11 @@ func ApiRouter() *gin.Engine {
 	r.StaticFS("/static", http.Dir(config.Conf.App.UploadSavePath))
 	article1 := api.NewArticle()
 	atl.GET("/articles", article1.ArticleList)
-	atl.GET("/articles/:id", article1.ArticleDetail)
+	atl.POST("/articles/:id", article1.ArticleDetail)
+	//测试发邮件，需要先配置好
+	atl.GET("/articles/email", article1.SendEmail)
+	//测试httpclient，类似于curl
+	atl.GET("/articles/curl", article1.Curl)
 	//article := r.Group("articles")
 	//{
 	//	article.GET("", api.ArticleList)

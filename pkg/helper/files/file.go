@@ -9,6 +9,7 @@ import (
 	"mime/multipart"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -115,4 +116,8 @@ func SaveFile(file *multipart.FileHeader, dst string) error {
 
 	_, err = io.Copy(out, src)
 	return err
+}
+
+func Basename(path string) string {
+	return filepath.Base(path)
 }

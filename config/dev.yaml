@@ -1,6 +1,7 @@
 app:
   runMode: debug
   port: 8088
+  version: 1.0
   readTimeout: 5
   writeTimeout: 10
   appName: gin-api

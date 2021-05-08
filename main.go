@@ -23,17 +23,16 @@ import (
 // @description gin开发的系统
 // @termsOfService
 func main() {
-	appCfg := config.Conf.App
-
-	gin.SetMode(appCfg.RunMode)
+	cfg := config.Conf.App
+	gin.SetMode(cfg.RunMode)
 	routers := router.ApiRouter()
 	var s *http.Server
 	go func() {
 		s = &http.Server{
-			Addr:           ":" + appCfg.Port,
+			Addr:           ":" + cfg.Port,
 			Handler:        routers,
-			ReadTimeout:    appCfg.ReadTimeout * time.Second,
-			WriteTimeout:   appCfg.WriteTimeout * time.Second,
+			ReadTimeout:    cfg.ReadTimeout * time.Second,
+			WriteTimeout:   cfg.WriteTimeout * time.Second,
 			MaxHeaderBytes: 1 << 20,
 		}
 		err := s.ListenAndServe()

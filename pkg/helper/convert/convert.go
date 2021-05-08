@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math"
 	"math/rand"
 	"net"
@@ -13,8 +14,26 @@ import (
 	"strings"
 	"time"
 	"unicode"
+	"unsafe"
 )
+
 type Str string
+
+var (
+	// DefaultTrimChars are the characters which are stripped by Trim* functions in default.
+	DefaultTrimChars = string([]byte{
+		'\t', // Tab.
+		'\v', // Vertical tab.
+		'\n', // New line (line feed).
+		'\r', // Carriage return.
+		'\f', // New page.
+		' ',  // Ordinary space.
+		0x00, // NUL-byte.
+		0x85, // Delete.
+		0xA0, // Non-breaking space.
+	})
+)
+
 //StructToMap 结构体转 map[string]interface{}
 func StructToMap(in interface{}, tagName string) map[string]interface{} {
 	t := reflect.TypeOf(in)
@@ -31,59 +50,103 @@ func StructToMap(in interface{}, tagName string) map[string]interface{} {
 	return maps
 }
 
-func TypeAssertion(i interface{}) string {
-	var key string
-	if i == nil {
-		return key
-	}
+type apiString interface {
+	String() string
+}
 
-	switch i.(type) {
-	case float64:
-		ft := i.(float64)
-		key = strconv.FormatFloat(ft, 'f', -1, 64)
-	case float32:
-		ft := i.(float32)
-		key = strconv.FormatFloat(float64(ft), 'f', -1, 64)
+type apiError interface {
+	Error() string
+}
+
+func String(any interface{}) string {
+	if any == nil {
+		return ""
+	}
+	switch value := any.(type) {
 	case int:
-		it := i.(int)
-		key = strconv.Itoa(it)
-	case uint:
-		it := i.(uint)
-		key = strconv.Itoa(int(it))
+		return strconv.Itoa(value)
 	case int8:
-		it := i.(int8)
-		key = strconv.Itoa(int(it))
-	case uint8:
-		it := i.(uint8)
-		key = strconv.Itoa(int(it))
+		return strconv.Itoa(int(value))
 	case int16:
-		it := i.(int16)
-		key = strconv.Itoa(int(it))
-	case uint16:
-		it := i.(uint16)
-		key = strconv.Itoa(int(it))
+		return strconv.Itoa(int(value))
 	case int32:
-		it := i.(int32)
-		key = strconv.Itoa(int(it))
-	case uint32:
-		it := i.(uint32)
-		key = strconv.Itoa(int(it))
+		return strconv.Itoa(int(value))
 	case int64:
-		it := i.(int64)
-		key = strconv.FormatInt(it, 10)
+		return strconv.FormatInt(value, 10)
+	case uint:
+		return strconv.FormatUint(uint64(value), 10)
+	case uint8:
+		return strconv.FormatUint(uint64(value), 10)
+	case uint16:
+		return strconv.FormatUint(uint64(value), 10)
+	case uint32:
+		return strconv.FormatUint(uint64(value), 10)
 	case uint64:
-		it := i.(uint64)
-		key = strconv.FormatUint(it, 10)
+		return strconv.FormatUint(value, 10)
+	case float32:
+		return strconv.FormatFloat(float64(value), 'f', -1, 32)
+	case float64:
+		return strconv.FormatFloat(value, 'f', -1, 64)
+	case bool:
+		return strconv.FormatBool(value)
 	case string:
-		key = i.(string)
+		return value
 	case []byte:
-		key = string(i.([]byte))
+		return string(value)
+	case time.Time:
+		if value.IsZero() {
+			return ""
+		}
+		return value.String()
+	case *time.Time:
+		if value == nil {
+			return ""
+		}
+		return value.String()
 	default:
-		newValue, _ := json.Marshal(i)
-		key = string(newValue)
+		// Empty checks.
+		if value == nil {
+			return ""
+		}
+		if f, ok := value.(apiString); ok {
+			// If the variable implements the String() interface,
+			// then use that interface to perform the conversion
+			return f.String()
+		}
+		if f, ok := value.(apiError); ok {
+			// If the variable implements the Error() interface,
+			// then use that interface to perform the conversion
+			return f.Error()
+		}
+		// Reflect checks.
+		var (
+			rv   = reflect.ValueOf(value)
+			kind = rv.Kind()
+		)
+		switch kind {
+		case reflect.Chan,
+			reflect.Map,
+			reflect.Slice,
+			reflect.Func,
+			reflect.Ptr,
+			reflect.Interface,
+			reflect.UnsafePointer:
+			if rv.IsNil() {
+				return ""
+			}
+		case reflect.String:
+			return rv.String()
+		}
+		if kind == reflect.Ptr {
+			return String(rv.Elem().Interface())
+		}
+		// Finally we use json.Marshal to convert.
+		if jsonContent, err := json.Marshal(value); err != nil {
+			return fmt.Sprint(value)
+		} else {
+			return string(jsonContent)
+		}
 	}
-
-	return key
 }
 
 //RandomString 生成随机字符串
@@ -186,4 +249,119 @@ func CamelCaseToUnderscore(s string) string {
 		output = append(output, unicode.ToLower(r))
 	}
 	return string(output)
+}
+
+func Trim(str string, characterMask ...string) string {
+	trimChars := DefaultTrimChars
+	if len(characterMask) > 0 {
+		trimChars += characterMask[0]
+	}
+	return strings.Trim(str, trimChars)
+}
+
+// Contains reports whether <substr> is within <str>, case-sensitively.
+func Contains(str, substr string) bool {
+	return strings.Contains(str, substr)
+}
+
+func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
+	array := make([]string, 0)
+	for _, v := range strings.Split(str, delimiter) {
+		v = Trim(v, characterMask...)
+		if v != "" {
+			array = append(array, v)
+		}
+	}
+	return array
+}
+
+func Map(value interface{}) map[string]interface{} {
+	if value == nil {
+		return nil
+	}
+	// Assert the common combination of types, and finally it uses reflection.
+	dataMap := make(map[string]interface{})
+	switch r := value.(type) {
+	case string:
+		// If it is a JSON string, automatically unmarshal it!
+		if len(r) > 0 && r[0] == '{' && r[len(r)-1] == '}' {
+			if err := json.Unmarshal([]byte(r), &dataMap); err != nil {
+				return nil
+			}
+		} else {
+			return nil
+		}
+	case []byte:
+		// If it is a JSON string, automatically unmarshal it!
+		if len(r) > 0 && r[0] == '{' && r[len(r)-1] == '}' {
+			if err := json.Unmarshal(r, &dataMap); err != nil {
+				return nil
+			}
+		} else {
+			return nil
+		}
+	case map[interface{}]interface{}:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[interface{}]string:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[interface{}]int:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[interface{}]uint:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[interface{}]float32:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[interface{}]float64:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[string]bool:
+		for k, v := range r {
+			dataMap[k] = v
+		}
+	case map[string]int:
+		for k, v := range r {
+			dataMap[k] = v
+		}
+	case map[string]uint:
+		for k, v := range r {
+			dataMap[k] = v
+		}
+	case map[string]float32:
+		for k, v := range r {
+			dataMap[k] = v
+		}
+	case map[string]float64:
+		for k, v := range r {
+			dataMap[k] = v
+		}
+	case map[string]interface{}:
+		return r
+	case map[int]interface{}:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[int]string:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	case map[uint]string:
+		for k, v := range r {
+			dataMap[String(k)] = v
+		}
+	}
+	return dataMap
+}
+
+func UnsafeBytesToStr(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }

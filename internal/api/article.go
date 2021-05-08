@@ -7,9 +7,11 @@ import (
 	"ginpro/pkg/app"
 	"ginpro/pkg/gredis"
 	"ginpro/pkg/helper/email"
-	"strconv"
-
+	"ginpro/pkg/helper/gjson"
+	"ginpro/pkg/httpclient"
 	"github.com/gin-gonic/gin"
+	"strconv"
+	"time"
 )
 
 type Article struct{}
@@ -65,7 +67,15 @@ func (a *Article) ArticleList(c *gin.Context) {
 }
 
 func (a *Article) ArticleDetail(c *gin.Context) {
-	app.Error(c, dict.InvalidParams)
+	json := make(map[string]interface{}) //注意该结构接受的内容
+	c.BindJSON(&json)
+	app.Success(c, map[string]interface{}{
+		"name": json["name"],
+		"age":  json["age"],
+		"sex":  json["sex"],
+	})
+
+	//app.Error(c, dict.InvalidParams)
 }
 
 func (a *Article) SendEmail(c *gin.Context) {
@@ -74,6 +84,24 @@ func (a *Article) SendEmail(c *gin.Context) {
 		fmt.Println(err)
 		app.Error(c, dict.ServerError)
 	}
-	app.Success(c, nil)
+	app.Success(c, map[string]string{"name": "test"})
+	return
+}
+
+func (a *Article) Curl(c *gin.Context) {
+	res, err := httpclient.New().Timeout(3*time.Second).Post("http://localhost:8088/api/articles/1", gin.H{"name": "aaa", "age": "12", "sex": "1"})
+
+	if err != nil {
+		fmt.Println("aaa", err)
+	}
+	s := res.ReadAllString()
+	r := gjson.JsonDecode(s)
+	fmt.Println(r)
+	fmt.Println(r["code"])
+	fmt.Println(r["msg"])
+	fmt.Println(r["data"])
+	fmt.Println(r["elapsed"])
+	fmt.Println(s)
+	app.Success(c, r)
 	return
 }
