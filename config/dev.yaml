@@ -60,3 +60,6 @@ mongo:
   host: 127.0.0.1:27017
   maxPoolSize: 100
   timeout: 100
+kafka:
+  connect:
+  topic:

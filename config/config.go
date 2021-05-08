@@ -77,6 +77,10 @@ type Yaml struct {
 		MaxPoolSize uint64        `yaml:"maxPoolSize"`
 		Timeout     time.Duration `yaml:"timeout"`
 	}
+	Kafka struct {
+		Topic   string `yaml:"topic"`
+		Connect string `yaml:"connect"`
+	}
 }
 
 var (
