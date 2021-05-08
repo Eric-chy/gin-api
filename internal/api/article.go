@@ -92,8 +92,9 @@ func (a *Article) Curl(c *gin.Context) {
 	res, err := httpclient.New().Timeout(3*time.Second).Post("http://localhost:8088/api/articles/1", gin.H{"name": "aaa", "age": "12", "sex": "1"})
 
 	if err != nil {
-		fmt.Println("aaa", err)
+		fmt.Println(err)
 	}
+	defer res.Close()
 	s := res.ReadAllString()
 	r := gjson.JsonDecode(s)
 	fmt.Println(r)
