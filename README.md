@@ -1,7 +1,7 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，你们的star是我持续更新的动力，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，限流，sentry, jwt，发送邮件，图片上传，httpclient用于请求第三方接口等,为了减少手动写model结构体的痛苦，可以看我另外一个仓库https://gitee.com/yaozong/generate-models  自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
+<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，你们的star是我持续更新的动力，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，发送邮件，图片上传，httpclient用于请求第三方接口等,为了减少手动写model结构体的痛苦，可以看我另外一个仓库https://gitee.com/yaozong/generate-models  自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
 
 #### 目录结构
 ~~~
