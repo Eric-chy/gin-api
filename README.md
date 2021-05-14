@@ -68,7 +68,7 @@ ginpro  根目录
    -p 9411:9411 \
    jaegertracing/all-in-one:latest
    ```
-3.  安装es（以下3-6都可以通过在internal/boot/boot.go的InitApp方法中选择决定初始化是否安装，如果不需要可以注释掉对应代码）
+3.  安装es（以下3-6都可以通过在boot/boot.go的InitApp方法中选择决定初始化是否安装，如果不需要可以注释掉对应代码）
 4.  安装redis
 5.  安装mongo
 6.  安装rabbitmq
