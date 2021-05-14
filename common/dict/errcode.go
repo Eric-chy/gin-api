@@ -15,18 +15,19 @@ var (
 	UnauthorizedTokenTimeout  = NewError(10000005, "鉴权失败，Token 超时")
 	UnauthorizedTokenGenerate = NewError(10000006, "鉴权失败，Token 生成失败")
 	TooManyRequests           = NewError(10000007, "请求过多")
+	ErrRateLimited            = NewError(10000008, "超出请求频率限制")
 )
 
 var (
-	ErrGetArtCountFail = NewError(20010001, "获取总数失败")
-	ErrGetArtListFail = NewError(20010002, "获取列表失败")
-	ErrorUploadFileFail   = NewError(20030001, "上传文件失败")
+	ErrGetArtCountFail  = NewError(20010001, "获取总数失败")
+	ErrGetArtListFail   = NewError(20010002, "获取列表失败")
+	ErrorUploadFileFail = NewError(20030001, "上传文件失败")
 )
 
 type Error struct {
 	code    int      `json:"code"`
 	msg     string   `json:"msg"`
-	level     string   `json:"level"`
+	level   string   `json:"level"`
 	details []string `json:"details"`
 }
 

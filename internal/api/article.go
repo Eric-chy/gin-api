@@ -5,16 +5,19 @@ import (
 	"ginpro/common/dict"
 	"ginpro/internal/service"
 	"ginpro/pkg/app"
-	"ginpro/pkg/gredis"
 	"ginpro/pkg/helper/email"
 	"ginpro/pkg/helper/gjson"
 	"ginpro/pkg/httpclient"
+	"ginpro/pkg/redigo"
 	"github.com/gin-gonic/gin"
 	"strconv"
+	"sync"
 	"time"
 )
 
 type Article struct{}
+
+var m sync.Map
 
 func NewArticle() Article {
 
@@ -32,6 +35,7 @@ func NewArticle() Article {
 // @Failure 500 {object} dict.Error "内部错误"
 // @Router /api/articles [get]
 func (a *Article) ArticleList(c *gin.Context) {
+	m.Store("aaa", 1111)
 	param := struct {
 		Title string `form:"title" binding:"max=100"`
 	}{
@@ -56,7 +60,7 @@ func (a *Article) ArticleList(c *gin.Context) {
 		return
 	}
 	for _, article := range articles {
-		num, err := gredis.GetNum("article" + strconv.Itoa(int(article.Id)))
+		num, err := redigo.GetNum("article" + strconv.Itoa(int(article.Id)))
 		if err != nil {
 			num = 1
 		}
@@ -68,12 +72,15 @@ func (a *Article) ArticleList(c *gin.Context) {
 
 func (a *Article) ArticleDetail(c *gin.Context) {
 	json := make(map[string]interface{}) //注意该结构接受的内容
-	c.BindJSON(&json)
+	c.ShouldBind(&json)
+	aa, _ := m.Load("aaa")
 	app.Success(c, map[string]interface{}{
 		"name": json["name"],
 		"age":  json["age"],
 		"sex":  json["sex"],
+		"aaa":  aa,
 	})
+	return
 
 	//app.Error(c, dict.InvalidParams)
 }

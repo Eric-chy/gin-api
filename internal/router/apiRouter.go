@@ -19,6 +19,7 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(limiter.LimiterBucket
 	Capacity:     10,
 	Quantum:      10,
 })
+var rate = 2
 
 func ApiRouter() *gin.Engine {
 	var r *gin.Engine
@@ -32,7 +33,8 @@ func ApiRouter() *gin.Engine {
 	r.Use(middleware.Logger())
 	//// 使用 Recovery 中间件
 	r.Use(middleware.Recovery())
-	r.Use(middleware.RateLimiter(methodLimiters))
+	r.Use(middleware.RateLimiter(methodLimiters)) //单机限流
+	r.Use(middleware.RedisLimiter(rate))          //分布式限流
 	r.Use(middleware.ContextTimeout(60 * time.Second))
 	r.Use(middleware.Translations())
 	//r.Use(middleware.Tracing())
@@ -47,7 +49,7 @@ func ApiRouter() *gin.Engine {
 	r.StaticFS("/static", http.Dir(config.Conf.App.UploadSavePath))
 	article1 := api.NewArticle()
 	atl.GET("/articles", article1.ArticleList)
-	atl.POST("/articles/:id", article1.ArticleDetail)
+	atl.GET("/articles/:id", article1.ArticleDetail)
 	//测试发邮件，需要先配置好
 	atl.GET("/articles/email", article1.SendEmail)
 	//测试httpclient，类似于curl
