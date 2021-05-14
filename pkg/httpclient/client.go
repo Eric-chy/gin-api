@@ -1,4 +1,4 @@
-//Package httpclient  移植自gf,使用方式请参考internal/api/article.go下的curl方法
+//Package httpclient  移植自gf，使用方式请参考internal/api/article.go下的curl方法
 package httpclient
 
 import (
