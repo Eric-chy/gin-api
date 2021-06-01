@@ -2,22 +2,25 @@ package logger
 
 import (
 	"ginpro/common/global"
+	"ginpro/config"
 	"ginpro/pkg/helper/files"
 	"github.com/sirupsen/logrus"
 )
 
 func Init() {
 	global.Logger = logrus.New()
-	//hook, err := logrus_sentry.NewSentryHook(config.Conf.Sentry.Dsn, []logrus.Level{
-	//	logrus.PanicLevel,
-	//	logrus.FatalLevel,
-	//	logrus.ErrorLevel,
-	//})
-	//if err == nil {
-	//	global.Logger.Hooks.Add(hook)
-	//	hook.Timeout = 0
-	//	hook.StacktraceConfiguration.Enable = true
-	//}
+	if config.Conf.Sentry.Dsn != "" {
+		hook, err := logrus_sentry.NewSentryHook(config.Conf.Sentry.Dsn, []logrus.Level{
+			logrus.PanicLevel,
+			logrus.FatalLevel,
+			logrus.ErrorLevel,
+		})
+		if err == nil {
+			global.Logger.Hooks.Add(hook)
+			hook.Timeout = 0
+			hook.StacktraceConfiguration.Enable = true
+		}
+	}
 	// 设置日志格式为json格式
 	global.Logger.SetFormatter(&logrus.JSONFormatter{})
 	//设置文件输出
