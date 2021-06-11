@@ -1,11 +1,11 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等,为了减少手动写model结构体的痛苦，可以看我另外一个仓库https://gitee.com/yaozong/generate-models  自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
+<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等,为了减少手动写model结构体的痛苦，可以看我另外一个仓库https://github.com/Eric-chy/generate-models  自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
 
 #### 目录结构
 ~~~
-gin-api  根目录
+ginpro  根目录
 ├─boot  初始化启动数据库连接等
 ├─common  初始化启动数据库连接等
 │   ├─dict   数据字典，错误码和常用参数
@@ -126,7 +126,7 @@ gin-api  根目录
     设置路由，在apiRouter.go中先(否则会报:Failed to load spec)
     ```
     import(
-        _ "gin-api/docs"
+        _ "ginpro/docs"
     )
     ```
     再设置
@@ -135,13 +135,13 @@ gin-api  根目录
     ```
     生成swagger文档：在根目录执行swag init
     swagger文档查看 http://127.0.0.1:8001/swagger/index.html查看
-11.如果不需要其中的某些组件，如es，redis，mongo等，可以在boot/boot.go init方法中注释掉相关的即可    
+    11.如果不需要其中的某些组件，如es，redis，mongo等，可以在boot/boot.go init方法中注释掉相关的即可
 #### 使用说明
 
 1.  启动项目后我们可以看到对应的路由信息，可以使用浏览器或者postman之类的进行访问
 2.  链路信息查看：http://127.0.0.1:16686/
 3.  文件上传测试 ```curl -X POST http://127.0.0.1:8000/upload/file -F file=@{file_path} -F type=1```
-4. 项目启动后访问 http://127.0.0.1:8088/api/articles   
+4. 项目启动后访问 http://127.0.0.1:8088/api/articles
 5.  建表语句，目前只是简单展示，所以只建立了一个简单的表
 ```mysql
 CREATE DATABASE blog;
@@ -158,4 +158,3 @@ PRIMARY KEY (`id`)
 ) ENGINE=Innodb DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 INSERT INTO blog.article VALUES(NULL, "我的第一篇文章", "文章简介", 100, "文章的内容很好看", "2020-02-02 02:22:22", "2020-02-02 02:22:22") 
 ```
-

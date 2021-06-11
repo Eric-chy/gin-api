@@ -1,11 +1,11 @@
 # Gin Project
 
 #### Introduction
-<h6 style="color:red;font-weight:100;">The following is a project interface based on gin, including mysql, redis, elasticsearch, mongo, rabbitmq, jaeger, sentry,ratelimiter, jwt, sending mail, uploading pictures, etc. If you are interested, please star, and you can also follow my blog:http://www.cyz.show</h6>
+<h6 style="color:red;font-weight:100;">The following is a project api developed based on gin, which will continue to be updated. If you are interested, please star. This project includes mysql, redis, elasticsearch, mongo, rabbitmq, kafka, jaeger, single limitrate, distributed limitrate, sentry, jwt, request parameters Verify, send emails, upload pictures, httpclient is used to request third-party api, etc. In order to reduce the pain of manually writing model structures, you can see my other warehouse https://github.com/Eric-chy/generate-models automatically generated model file, the grpc part will be added later, and you can also follow my blog http://www.cyz.show For the installation of all the following 3-6 components, please refer to my blog: http://www.cyz.show/ article/45</h6>
 
 #### Directory Structure
 ~~~
-gin-api root directory
+ginpro root directory
 ├─boot initialize database connection, etc.
 ├─common initialize database connection, etc.
 │ ├─dict data dictionary, error codes and common parameters
@@ -126,7 +126,7 @@ gin-api root directory
     Set the route, first in apiRouter.go (otherwise it will report: Failed to load spec)
     ```
     import(
-        _ "gin-api/docs"
+        _ "ginpro/docs"
     )
     ```
     Set again
