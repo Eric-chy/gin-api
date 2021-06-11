@@ -1,8 +1,8 @@
 package service
 
 import (
-	"ginpro/internal/model"
-	"ginpro/pkg/app"
+	"gin-api/internal/model"
+	"gin-api/pkg/app"
 )
 
 func (svc *Service) CountArticle(title string) (int, error) {

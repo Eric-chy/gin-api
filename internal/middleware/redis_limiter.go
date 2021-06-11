@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"ginpro/common/dict"
-	"ginpro/common/global"
-	"ginpro/pkg/app"
+	"gin-api/common/dict"
+	"gin-api/common/global"
+	"gin-api/pkg/app"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis_rate/v9"
 	"strconv"

@@ -5,7 +5,7 @@
 
 #### Directory Structure
 ~~~
-ginpro root directory
+gin-api root directory
 ├─boot initialize database connection, etc.
 ├─common initialize database connection, etc.
 │ ├─dict data dictionary, error codes and common parameters
@@ -126,7 +126,7 @@ ginpro root directory
     Set the route, first in apiRouter.go (otherwise it will report: Failed to load spec)
     ```
     import(
-        _ "ginpro/docs"
+        _ "gin-api/docs"
     )
     ```
     Set again

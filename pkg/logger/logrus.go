@@ -1,9 +1,10 @@
 package logger
 
 import (
-	"ginpro/common/global"
-	"ginpro/config"
-	"ginpro/pkg/helper/files"
+	"gin-api/common/global"
+	"gin-api/config"
+	"gin-api/pkg/helper/files"
+	"github.com/evalphobia/logrus_sentry"
 	"github.com/sirupsen/logrus"
 )
 

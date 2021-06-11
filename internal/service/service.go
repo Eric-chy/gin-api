@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"ginpro/common/global"
-	"ginpro/internal/dao"
+	"gin-api/common/global"
+	"gin-api/internal/dao"
 	otgorm "github.com/eddycjy/opentracing-gorm"
 )
 

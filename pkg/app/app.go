@@ -2,8 +2,8 @@ package app
 
 import (
 	"bytes"
-	"ginpro/common/dict"
-	"ginpro/pkg/helper/gjson"
+	"gin-api/common/dict"
+	"gin-api/pkg/helper/gjson"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"

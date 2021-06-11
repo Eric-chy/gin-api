@@ -1,11 +1,11 @@
 package boot
 
 import (
-	"ginpro/config"
-	"ginpro/internal/model"
-	"ginpro/pkg/gredis"
-	"ginpro/pkg/logger"
-	"ginpro/pkg/redigo"
+	"gin-api/config"
+	"gin-api/internal/model"
+	"gin-api/pkg/gredis"
+	"gin-api/pkg/logger"
+	"gin-api/pkg/redigo"
 )
 
 func init() {

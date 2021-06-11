@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"ginpro/common/global"
+	"gin-api/common/global"
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"

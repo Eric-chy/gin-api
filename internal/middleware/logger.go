@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"ginpro/common/global"
-	"ginpro/pkg/app"
+	"gin-api/common/global"
+	"gin-api/pkg/app"
 	"github.com/gin-gonic/gin"
 )
 

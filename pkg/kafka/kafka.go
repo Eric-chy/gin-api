@@ -3,10 +3,10 @@ package kafka
 
 import (
 	"fmt"
-	"ginpro/config"
-	"ginpro/pkg/helper/convert"
-	"ginpro/pkg/helper/gjson"
-	"ginpro/pkg/helper/gtime"
+	"gin-api/config"
+	"gin-api/pkg/helper/convert"
+	"gin-api/pkg/helper/gjson"
+	"gin-api/pkg/helper/gtime"
 	"github.com/Shopify/sarama"
 )
 

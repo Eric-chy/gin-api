@@ -2,8 +2,8 @@ package files
 
 import (
 	"fmt"
-	"ginpro/config"
-	util "ginpro/pkg/security"
+	"gin-api/config"
+	util "gin-api/pkg/security"
 	"io"
 	"io/ioutil"
 	"mime/multipart"

@@ -3,8 +3,8 @@ package redigo
 import (
 	"encoding/json"
 	"fmt"
-	"ginpro/common/global"
-	"ginpro/config"
+	"gin-api/common/global"
+	"gin-api/config"
 	"github.com/gomodule/redigo/redis"
 	"time"
 )

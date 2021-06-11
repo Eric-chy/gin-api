@@ -2,8 +2,8 @@ package service
 
 import (
 	"errors"
-	"ginpro/config"
-	"ginpro/pkg/helper/files"
+	"gin-api/config"
+	"gin-api/pkg/helper/files"
 	"mime/multipart"
 	"os"
 )

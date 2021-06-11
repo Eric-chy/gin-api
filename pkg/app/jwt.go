@@ -1,8 +1,8 @@
 package app
 
 import (
-	"ginpro/config"
-	util "ginpro/pkg/security"
+	"gin-api/config"
+	util "gin-api/pkg/security"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )

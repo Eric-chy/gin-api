@@ -1,11 +1,11 @@
 package router
 
 import (
-	"ginpro/config"
-	_ "ginpro/docs"
-	"ginpro/internal/api"
-	"ginpro/internal/middleware"
-	"ginpro/pkg/limiter"
+	"gin-api/config"
+	_ "gin-api/docs"
+	"gin-api/internal/api"
+	"gin-api/internal/middleware"
+	"gin-api/pkg/limiter"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"

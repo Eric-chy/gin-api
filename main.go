@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	_ "ginpro/boot"
-	"ginpro/config"
-	"ginpro/internal/router"
+	_ "gin-api/boot"
+	"gin-api/config"
+	"gin-api/internal/router"
 	"net/http"
 	"os"
 	"os/signal"

@@ -2,8 +2,8 @@ package mgodb
 
 import (
 	"context"
-	"ginpro/common/global"
-	"ginpro/config"
+	"gin-api/common/global"
+	"gin-api/config"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -105,7 +105,7 @@ func (m *mgo) DeleteAndFind(key string, value interface{}) (int64, *mongo.Single
 	DeleteResult, err := collection.DeleteOne(context.TODO(), m.filter, nil)
 	if err != nil {
 		log.Println("删除时出现错误，你删不掉的~")
-		return 0,nil
+		return 0, nil
 	}
 	return DeleteResult.DeletedCount, singleResult
 }
@@ -133,14 +133,14 @@ func (m *mgo) DeleteMany(key string, value interface{}) int64 {
 	return count.DeletedCount
 }
 
-func (m *mgo) FindAndUpdate(filter interface{}, update interface{})*mongo.SingleResult {
+func (m *mgo) FindAndUpdate(filter interface{}, update interface{}) *mongo.SingleResult {
 	return global.Mongo.Database(m.db).Collection(m.col).FindOneAndUpdate(context.TODO(), m.filter, m.update)
 }
 
-func (m *mgo) UpdateOne(filter interface{}, update interface{}) (*mongo.UpdateResult, error){
+func (m *mgo) UpdateOne(filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
 	return global.Mongo.Database(m.db).Collection(m.col).UpdateOne(context.TODO(), m.filter, m.update)
 }
 
-func (m *mgo) UpdateMany(filter interface{}, update interface{}) (*mongo.UpdateResult, error){
+func (m *mgo) UpdateMany(filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
 	return global.Mongo.Database(m.db).Collection(m.col).UpdateMany(context.TODO(), m.filter, m.update)
 }

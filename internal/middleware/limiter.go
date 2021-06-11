@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"ginpro/common/dict"
-	"ginpro/pkg/app"
-	"ginpro/pkg/limiter"
+	"gin-api/common/dict"
+	"gin-api/pkg/app"
+	"gin-api/pkg/limiter"
 	"github.com/gin-gonic/gin"
 )
 

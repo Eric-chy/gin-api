@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
-	"ginpro/common/dict"
-	"ginpro/pkg/app"
+	"gin-api/common/dict"
+	"gin-api/pkg/app"
 	"github.com/gin-gonic/gin"
 )
 

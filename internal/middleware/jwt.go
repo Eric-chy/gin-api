@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"ginpro/common/dict"
-	"ginpro/pkg/app"
+	"gin-api/common/dict"
+	"gin-api/pkg/app"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )

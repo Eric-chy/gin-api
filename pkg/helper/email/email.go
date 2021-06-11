@@ -2,7 +2,7 @@ package email
 
 import (
 	"crypto/tls"
-	"ginpro/config"
+	"gin-api/config"
 	"gopkg.in/gomail.v2"
 )
 
@@ -35,7 +35,7 @@ func (e *Email) SendMail(to []string, subject, body string) error {
 	return dialer.DialAndSend(m)
 }
 
-func  SendMail(to []string, subject, body string) error {
+func SendMail(to []string, subject, body string) error {
 	cfg := config.Conf.Email
 	email := NewEmail(&SMTPInfo{
 		Host:     cfg.Host,

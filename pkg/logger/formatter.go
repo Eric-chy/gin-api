@@ -2,9 +2,9 @@ package logger
 
 import (
 	"fmt"
-	"ginpro/pkg/helper/convert"
-	"ginpro/pkg/helper/gjson"
-	"ginpro/pkg/helper/gtime"
+	"gin-api/pkg/helper/convert"
+	"gin-api/pkg/helper/gjson"
+	"gin-api/pkg/helper/gtime"
 	"github.com/sirupsen/logrus"
 	"path/filepath"
 	"strings"

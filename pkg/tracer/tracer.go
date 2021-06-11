@@ -1,8 +1,8 @@
 package tracer
 
 import (
-	"ginpro/common/global"
-	conf "ginpro/config"
+	"gin-api/common/global"
+	conf "gin-api/config"
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go/config"
 	"io"

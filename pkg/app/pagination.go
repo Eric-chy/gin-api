@@ -1,8 +1,8 @@
 package app
 
 import (
-	"ginpro/config"
-	"ginpro/pkg/helper/convert"
+	"gin-api/config"
+	"gin-api/pkg/helper/convert"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +18,7 @@ func GetPage(c *gin.Context) int {
 func GetPageSize(c *gin.Context) int {
 	pageSize := convert.Str(c.Query("page_size")).ToInt()
 	if pageSize <= 0 {
-		return  config.Conf.App.DefaultPageSize
+		return config.Conf.App.DefaultPageSize
 	}
 	if pageSize > config.Conf.App.MaxPageSize {
 		return config.Conf.App.MaxPageSize

@@ -2,8 +2,8 @@ package model
 
 import (
 	"fmt"
-	"ginpro/common/global"
-	"ginpro/config"
+	"gin-api/common/global"
+	"gin-api/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	log "github.com/sirupsen/logrus"

@@ -5,7 +5,7 @@
 
 #### 目录结构
 ~~~
-ginpro  根目录
+gin-api  根目录
 ├─boot  初始化启动数据库连接等
 ├─common  初始化启动数据库连接等
 │   ├─dict   数据字典，错误码和常用参数
@@ -126,7 +126,7 @@ ginpro  根目录
     设置路由，在apiRouter.go中先(否则会报:Failed to load spec)
     ```
     import(
-        _ "ginpro/docs"
+        _ "gin-api/docs"
     )
     ```
     再设置

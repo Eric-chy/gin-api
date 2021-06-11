@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"ginpro/internal/model"
-	"ginpro/pkg/app"
+	"gin-api/internal/model"
+	"gin-api/pkg/app"
 )
 
 func (d *Dao) CountArticle(title string) (int, error) {
@@ -45,4 +45,3 @@ func (d *Dao) GetArticleList(title string, page, pageSize int) ([]*model.Article
 //	tag := model.Tag{Model: &model.Model{ID: id}}
 //	return tag.Delete(d.engine)
 //}
-

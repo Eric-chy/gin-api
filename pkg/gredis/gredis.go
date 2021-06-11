@@ -3,8 +3,8 @@ package gredis
 import (
 	"context"
 	"fmt"
-	"ginpro/common/global"
-	"ginpro/config"
+	"gin-api/common/global"
+	"gin-api/config"
 	"github.com/go-redis/redis/v8"
 	"time"
 )

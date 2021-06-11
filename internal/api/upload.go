@@ -1,11 +1,11 @@
 package api
 
 import (
-	"ginpro/common/dict"
-	"ginpro/internal/service"
-	"ginpro/pkg/app"
-	"ginpro/pkg/helper/convert"
-	"ginpro/pkg/helper/files"
+	"gin-api/common/dict"
+	"gin-api/internal/service"
+	"gin-api/pkg/app"
+	"gin-api/pkg/helper/convert"
+	"gin-api/pkg/helper/files"
 	"github.com/gin-gonic/gin"
 )
 
