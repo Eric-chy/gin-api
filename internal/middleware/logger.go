@@ -13,7 +13,7 @@ func Logger() gin.HandlerFunc {
 		data["url"] = c.Request.Host + c.Request.RequestURI
 		data["method"] = c.Request.Method
 		data["proto"] = c.Request.Proto
-		data["request"] = app.JsonParams(c)
+		data["request"] = app.Params(c)
 		data["header"] = c.Request.Header
 
 		c.Next()
