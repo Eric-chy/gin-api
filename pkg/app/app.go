@@ -104,3 +104,13 @@ func JsonParams(c *gin.Context) map[string]interface{} {
 	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
 	return gjson.JsonDecode(string(b))
 }
+
+func Params(c *gin.Context) string {
+	b, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		panic(err)
+	}
+	// 将取出来的body内容重新插入body，否则ShouldBindJSON无法绑定参数
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
+	return string(b)
+}
