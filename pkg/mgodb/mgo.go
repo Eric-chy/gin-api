@@ -52,10 +52,9 @@ func Table(database, collection string) *mgo {
 
 // FindOne 查询单个
 func (m *mgo) FindOne(key string, value interface{}) *mongo.SingleResult {
-	collection, _ := global.Mongo.Database(m.db).Collection(m.col).Clone()
-	//col.
-	singleResult := collection.FindOne(context.TODO(), m.filter)
-	return singleResult
+	collection := global.Mongo.Database(m.db).Collection(m.col)
+	//collection.
+	singleResult := collection.FindOne(context.TODO(), bson.D{{key, value}})
 }
 
 //InsertOne 插入单个
