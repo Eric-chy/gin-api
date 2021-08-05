@@ -38,9 +38,7 @@ func (a *Article) ArticleList(c *gin.Context) {
 	m.Store("aaa", 1111)
 	param := struct {
 		Title string `form:"title" binding:"max=100"`
-	}{
-		Title: c.Param("title"),
-	}
+	}{}
 	valid, errs := app.BindAndValid(c, &param)
 	if !valid {
 		app.Error(c, dict.InvalidParams.WithDetails(errs.Errors()...))
