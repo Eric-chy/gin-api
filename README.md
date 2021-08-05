@@ -31,8 +31,7 @@ ginpro  根目录
 │  │  ├─form.go 表单验证封装            
 │  │  ├─jwt.go jwt鉴权            
 │  │  └─pagination.go 分页  
-│  ├─es elasticsearch  
-│  ├─fasthttp    
+│  ├─es elasticsearch     
 │  ├─gredis  redis    
 │  ├─helper
 │  │  ├─convert 常用转换        
