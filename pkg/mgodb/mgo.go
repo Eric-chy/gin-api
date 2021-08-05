@@ -18,7 +18,7 @@ import (
 //			{"name", "aaa"},
 //		},
 //	}}
-
+//https://mongoing.com/archives/27257 mongodb中文社区
 type mgo struct {
 	db     string
 	col    string
@@ -30,7 +30,7 @@ func Init() {
 	cfg := config.Conf.Mongo
 	ctx, cancel := context.WithTimeout(context.Background(), cfg.Timeout)
 	defer cancel()
-	clientOptions := options.Client().ApplyURI(cfg.Host).SetMaxPoolSize(cfg.MaxPoolSize)
+	clientOptions := options.Client().ApplyURI("mongodb://" + cfg.Host).SetMaxPoolSize(cfg.MaxPoolSize)
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		log.Println(err)
