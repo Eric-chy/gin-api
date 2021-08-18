@@ -20,7 +20,7 @@ require (
 	github.com/go-playground/validator/v10 v10.5.0
 	github.com/go-redis/redis/v8 v8.3.4
 	github.com/go-redis/redis_rate/v9 v9.1.1
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.2
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/jinzhu/gorm v1.9.16
 	github.com/juju/ratelimit v1.0.1

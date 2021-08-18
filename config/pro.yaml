@@ -28,6 +28,7 @@ database:
   maxOpens: 100
   maxIdles: 10
   maxLifetime: 86400
+  tables: article,user
 redis:
   driver: redis
   protocol: tcp

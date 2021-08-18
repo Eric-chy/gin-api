@@ -1,12 +1,13 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等,为了减少手动写model结构体的痛苦，可以看我另外一个仓库https://github.com/Eric-chy/generate-models  自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
+<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等, 可自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
 
 #### 目录结构
 ~~~
 ginpro  根目录
 ├─boot  初始化启动数据库连接等
+├─cmd  自动生成model文件
 ├─common  初始化启动数据库连接等
 │   ├─dict   数据字典，错误码和常用参数
 │   └─global 全局变量    
@@ -39,11 +40,12 @@ ginpro  根目录
 │  │  ├─files 文件操作相关            
 │  │  ├─gjson json操作            
 │  │  └─gtime 时间相关操作  
+│  ├─httpclient 请求第三方，类似于curl   
 │  ├─limiter 限流            
 │  ├─logger 日志                   
 │  ├─mgodb mongodb                   
 │  ├─rabbitmq rabbitmq                   
-│  ├─security md5加密等                       
+│  ├─security md5，aes加密等                       
 │  └─tracer 链路追踪
 ├─storage               
 │  ├─logs 日志            
@@ -71,7 +73,7 @@ ginpro  根目录
 4.  安装redis
 5.  安装mongo
 6.  安装rabbitmq
-7.  安装sentry,如果不想安装，请修改pkg/logger/logrus.go文件中的下面代码注释掉,安装可以参考我的博客：http://www.cyz.show/article/37#content
+7.  安装sentry,如果不想安装，请修改pkg/logger/logrus.go文件中的下面代码注释掉,或者自己在配置文件中设置开关，安装可以参考我的博客：http://www.cyz.show/article/37#content
     ```golang
     hook, err := logrus_sentry.NewSentryHook(config.Conf.Sentry.Dsn, []logrus.Level{
     logrus.PanicLevel,
@@ -84,10 +86,20 @@ ginpro  根目录
     hook.StacktraceConfiguration.Enable = true
     }
     ```
-7.  在项目根目录下执行```go mod tidy```
-8.  ```go run main.go```即可启动
-9.  为了方便开发，一般使用热更新，安装fresh，在根目录下执行```go get github.com/pilu/fresh```，然后使用fresh命令即可启动，和上面第9步骤二选一
-10. swagger安装，生成文档，非必需
+8.  在项目根目录下执行```go mod tidy```
+9. 为了减少手动写model文件的麻烦，cmd目录提供了自动生成model文件的工具，使用如下：
+   在cmd目录下执行```go run genModel.go``` 加上以下参数或者不加
+   ```
+   -c string 指定要使用的配置文件路径 (default "../config/")
+   -r string 是否替换旧文件生成 (default "n" "n|y")
+   -d string 数据库名,不填则按配置文件来
+   -f string 指定要使用的配置文件名 (default "dev") 使用dev.yaml
+   -m string 指定要生成的model路径 (default "../internal/model/")
+   -t string 表名，多个使用英文半角,分割，不填则生成数据库下所有表的model
+   ```
+10.  根目录```go run main.go```即可启动
+11.  为了方便开发，一般使用热更新，安装fresh，在根目录下执行```go get github.com/pilu/fresh```，然后使用fresh命令即可启动，和上面第9步骤二选一
+12. swagger安装，生成文档，非必需
     ```
     go get -u github.com/swaggo/swag/cmd/swag@v1.6.5 
     go get -u github.com/swaggo/gin-swagger@v1.2.0
@@ -134,7 +146,8 @@ ginpro  根目录
     ```
     生成swagger文档：在根目录执行swag init
     swagger文档查看 http://127.0.0.1:8001/swagger/index.html查看
-    11.如果不需要其中的某些组件，如es，redis，mongo等，可以在boot/boot.go init方法中注释掉相关的即可
+    
+13.如果不需要其中的某些组件，如es，redis，mongo等，可以在boot/boot.go init方法中注释掉相关的即可，或者在配置文件中设置开关（自行实现即可）
 #### 使用说明
 
 1.  启动项目后我们可以看到对应的路由信息，可以使用浏览器或者postman之类的进行访问

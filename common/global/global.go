@@ -11,11 +11,13 @@ import (
 )
 
 var (
-	DBEngine  *gorm.DB
-	RedisPool *redis.Pool
-	Redis     *rdb.Client
-	Logger    *logrus.Logger
-	Tracer    opentracing.Tracer
-	Es        *elasticsearch.Client
-	Mongo     *mongo.Client
+	DBEngine     *gorm.DB
+	RedisPool    *redis.Pool
+	Redis        *rdb.Client
+	Logger       *logrus.Logger
+	Tracer       opentracing.Tracer
+	Es           *elasticsearch.Client
+	Mongo        *mongo.Client
+	ModelPath    string
+	ModelReplace string
 )

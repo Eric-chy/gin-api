@@ -38,6 +38,7 @@ type Yaml struct {
 		MaxIdles    int           `yaml:"maxIdles"`
 		MaxOpens    int           `yaml:"maxOpens"`
 		MaxLifetime time.Duration `yaml:"maxLifetime"`
+		Tables      []string      `yaml:"tables"`
 	}
 	Redis struct {
 		Driver      string        `yaml:"driver"`

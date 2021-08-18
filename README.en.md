@@ -1,7 +1,7 @@
 # Gin Project
 
 #### Introduction
-<h6 style="color:red;font-weight:100;">The following is a project api developed based on gin, which will continue to be updated. If you are interested, please star. This project includes mysql, redis, elasticsearch, mongo, rabbitmq, kafka, jaeger, single limitrate, distributed limitrate, sentry, jwt, request parameters Verify, send emails, upload pictures, httpclient is used to request third-party api, etc. In order to reduce the pain of manually writing model structures, you can see my other warehouse https://github.com/Eric-chy/generate-models automatically generated model file, the grpc part will be added later, and you can also follow my blog http://www.cyz.show For the installation of all the following 3-6 components, please refer to my blog: http://www.cyz.show/ article/45</h6>
+<h6 style="color:red;font-weight:100;">The following is a project api developed based on gin, which will continue to be updated. If you are interested, please star. This project includes mysql, redis, elasticsearch, mongo, rabbitmq, kafka, jaeger, single limitrate, distributed limitrate, sentry, jwt, request parameters Verify, send emails, upload pictures, httpclient is used to request third-party api, etc. automatically generated model files, the grpc part will be added later, and you can also follow my blog http://www.cyz.show For the installation of all the following 3-6 components, please refer to my blog: http://www.cyz.show/ article/45</h6>
 
 #### Directory Structure
 ~~~
@@ -32,7 +32,6 @@ ginpro root directory
 │ │ ├─jwt.go jwt authentication
 │ │ └─pagination.go pagination
 │ ├─es elasticsearch
-│ ├─fasthttp
 │ ├─gredis redis
 │ ├─helper
 │ │ ├─convert Common conversion
@@ -40,6 +39,7 @@ ginpro root directory
 │ │ ├─files file operation related
 │ │ ├─gjson json operation
 │ │ └─gtime time related operations
+│ ├─httpclient like curl   
 │ ├─limiter current limit
 │ ├─logger log
 │ ├─mgodb mongodb
@@ -88,6 +88,16 @@ ginpro root directory
 7. Execute ```go mod tidy``` in the project root directory
 8. ```go run main.go``` can start
 9. In order to facilitate the development, generally use hot update, install fresh, execute ```go get github.com/pilu/fresh``` in the root directory, and then use the fresh command to start, and the second choice of step 9 above One
+10. In order to reduce the trouble of manually writing model files, the cmd directory provides tools to automatically generate model files, use the following：
+    Execute in the cmd directory```go run genModel.go``` Add the following parameters or not
+   ```
+   -c string Specify the configuration file path to be used (default "../config/")
+   -r string Whether to replace the old file generation (default "n" "n|y")
+   -d string Database name, if it is not filled in, it will follow the configuration file
+   -f string Specify the name of the configuration file to be used (default "dev") use dev.yaml
+   -m string Specify the path of the model to be generated (default "../internal/model/")
+   -t string Table name, multiple use English half-width "," split, if not filled in, the model of all tables in the database will be generated
+   ```
 10. Install swagger, generate documentation, not necessary
     ```
     go get -u github.com/swaggo/swag/cmd/swag@v1.6.5
