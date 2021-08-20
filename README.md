@@ -98,7 +98,7 @@ ginpro  根目录
    -t string 表名，多个使用英文半角,分割，不填则生成数据库下所有表的model
    ```
 10.  根目录```go run main.go```即可启动
-11.  为了方便开发，一般使用热更新，安装fresh，在根目录下执行```go get github.com/pilu/fresh```，然后使用fresh命令即可启动，和上面第9步骤二选一
+11.  为了方便开发，一般使用热更新，安装fresh，在根目录下执行```go get github.com/pilu/fresh```，然后使用fresh命令即可启动，和上面第10步骤二选一
 12. swagger安装，生成文档，非必需
     ```
     go get -u github.com/swaggo/swag/cmd/swag@v1.6.5 
