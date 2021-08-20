@@ -1,7 +1,7 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">以下是基于gin开发的项目接口，将持续更新，有兴趣请star，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等, cmd目录下执行```go run genModel.go```可自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
+<h6 style="color:red;font-weight:100;">有兴趣请star一下，以下是基于gin开发的项目接口，将持续更新，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等, cmd目录下执行```go run genModel.go```可自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45</h6>
 
 #### 目录结构
 ~~~
@@ -69,7 +69,7 @@ ginpro  根目录
    -p 9411:9411 \
    jaegertracing/all-in-one:latest
    ```
-3.  安装es（以下3-6都可以通过在boot/boot.go的InitApp方法中选择决定初始化是否安装，如果不需要可以注释掉对应代码）
+3.  安装es（以下3-6都可以通过在boot/boot.go的InitApp方法中选择决定初始化是否安装，如果不需要可以注释掉boot/boot.go中对应启动代码或者在配置文件中加上开关配置参数判断是否需要启动）
 4.  安装redis
 5.  安装mongo
 6.  安装rabbitmq
@@ -86,7 +86,7 @@ ginpro  根目录
     hook.StacktraceConfiguration.Enable = true
     }
     ```
-8.  在项目根目录下执行```go mod tidy```
+8.  在项目根目录下执行```go mod tidy```，不清楚的请自行百度一下，先设置好proxy再执行命令，如：GOPROXY=https://goproxy.cn
 9. 为了减少手动写model文件的麻烦，cmd目录提供了自动生成model文件的工具，使用如下：
    在cmd目录下执行```go run genModel.go``` 加上以下参数或者不加
    ```
