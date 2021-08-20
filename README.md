@@ -8,7 +8,7 @@
 ginpro  根目录
 ├─boot  初始化启动数据库连接等
 ├─cmd  自动生成model文件
-├─common  初始化启动数据库连接等
+├─common  通用数据字典和全局变量
 │   ├─dict   数据字典，错误码和常用参数
 │   └─global 全局变量    
 ├─config 系统配置文件目录
