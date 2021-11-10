@@ -1,7 +1,7 @@
 # Gin Project
 
 #### Introduction
-<h6 style="color:red;font-weight:100;">The following is a project api developed based on gin, which will continue to be updated. If you are interested, please star. This project includes mysql, redis, elasticsearch, mongo, rabbitmq, kafka, jaeger, single limitrate, distributed limitrate, sentry, jwt, request parameters Verify, send emails, upload pictures, httpclient is used to request third-party api, etc. automatically generated model files, the grpc part will be added later, and you can also follow my blog http://www.cyz.show For the installation of all the following 3-6 components, please refer to my blog: http://www.cyz.show/ article/45</h6>
+<h6 style="color:red;font-weight:100;">The following is a project api developed based on gin, which will continue to be updated. If you are interested, please star. This project includes mysql, redis, elasticsearch, mongo, rabbitmq, kafka, jaeger, single limitrate, distributed limitrate, sentry, jwt, request parameters Verify, send emails, upload pictures, httpclient is used to request third-party api, etc. automatically generated model files, the grpc part will be added later, and you can also follow my blog http://www.cyz.show For the installation of all the following 3-6 components, please refer to my blog: http://www.cyz.show/ article/45.html</h6>
 
 #### Directory Structure
 ~~~
