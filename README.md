@@ -1,7 +1,7 @@
 # Gin项目
 
 #### 介绍
-<h6 style="color:red;font-weight:100;">有兴趣请star一下，以下是基于gin开发的项目接口，将持续更新，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等, cmd目录下执行```go run genModel.go```可自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/article/45.html</h6>
+<h6 style="color:red;font-weight:100;">有兴趣请star一下，以下是基于gin开发的项目接口，将持续更新，本项目包含mysql，redis，elasticsearch，mongo，rabbitmq，kafka，jaeger，单机限流，分布式限流，sentry, jwt，请求参数验证，发送邮件，图片上传，httpclient用于请求第三方接口等, cmd目录下执行```go run genModel.go```可自动生成model文件，后面会补上grpc的部分，另外可以关注我的博客http://www.cyz.show 以下3-6所有组件的安装可以参考我的博客：http://www.cyz.show/archives/143/</h6>
 
 #### 目录结构
 ~~~
@@ -73,7 +73,7 @@ ginpro  根目录
 4.  安装redis
 5.  安装mongo
 6.  安装rabbitmq
-7.  安装sentry,如果不想安装，请修改pkg/logger/logrus.go文件中的下面代码注释掉,或者自己在配置文件中设置开关，安装可以参考我的博客：http://www.cyz.show/article/37#content
+7.  安装sentry,如果不想安装，请修改pkg/logger/logrus.go文件中的下面代码注释掉,或者自己在配置文件中设置开关，安装可以参考我的博客：http://www.cyz.show/archives/252/
     ```golang
     hook, err := logrus_sentry.NewSentryHook(config.Conf.Sentry.Dsn, []logrus.Level{
     logrus.PanicLevel,
